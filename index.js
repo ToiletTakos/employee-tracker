@@ -1,4 +1,8 @@
 const inquirer = require('inquirer');
+const mysql = require('mysql2');
+const cTable = require('console.table')
+
+require('dotenv').config()
 
 const promptBusiness = () => {
     inquirer.prompt([
@@ -44,13 +48,22 @@ const promptBusiness = () => {
                 break;
             default:
                 sayBye();
+                break;
         }
     })
 }
 
 const promptDepartments = () => {
-    console.log("Departments");
-    promptBusiness();
+    const sql = `SELECT * FROM department`
+
+    db.query(sql, (err, rows) => {
+        if(err) {
+            console.log(err)
+            return;
+        }
+        console.table(rows);
+        promptBusiness();
+    })
 }
 
 const promptRoles = () => {
@@ -83,6 +96,22 @@ const promptUpdateRole = () => {
     promptBusiness();
 }
 
-const sayBye = () => console.log("Thanks for using the Database! Have a nice day!")
+const sayBye = () => {
+    console.log("Thanks for using the Database! Have a nice day!");
+}
+
+
+// Connect to database
+const db = mysql.createConnection(
+    {
+      host: 'localhost',
+      // Your MySQL username,
+      user: process.env.DB_USER,
+      // Your MySQL password
+      password: process.env.DB_PASS,
+      database: 'business'
+    },
+    console.log('Connected to the election database.')
+  );
 
 promptBusiness();
