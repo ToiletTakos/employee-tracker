@@ -63,17 +63,41 @@ const promptDepartments = () => {
         }
         console.table(rows);
         promptBusiness();
-    })
-}
+    });
+};
 
 const promptRoles = () => {
-    console.log("Roles");
-    promptBusiness();
-}
+    const sql = `SELECT role.id, role.title, role.salary, department.department
+                 AS department
+                 FROM role
+                 LEFT JOIN department
+                 ON role.department_id = department.id`;
+    
+    db.query(sql, (err, rows) => {
+        if(err) {
+            console.log(err)
+            return;
+        }
+        console.table(rows);
+        promptBusiness();
+    });
+};
 
 const promptEmployees = () => {
-    console.log("Employees");
-    promptBusiness();
+    const sql = `SELECT e.id, e.first_name, e.last_name, role.title, department.department, role.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager
+                 FROM employee e
+                 LEFT JOIN role ON e.role_id = role.id
+                 LEFT JOIN department ON role.department_id = department.id
+                 LEFT JOIN employee m ON e.manager_id = m.id`
+    
+    db.query(sql, (err, rows) => {
+        if(err){
+            console.log(err)
+            return;
+        }
+        console.table(rows);
+        promptBusiness();
+    })
 }
 
 const promptAddDepartment = () => {
