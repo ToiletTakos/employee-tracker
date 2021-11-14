@@ -23,3 +23,9 @@ our challenge this week is to build a command-line application to manage a compa
 ![viewing and adding role](./Assets/adding-role.png)
 ![viewing and adding an employee](./Assets/view-add-employee.png)
 ![updating an employees role and then finishing](./Assets/update-employee-role-and-finish.png)
+
+## links
+
+GitHub repository:https://github.com/ToiletTakos/employee-tracker
+
+Video link: https://watch.screencastify.com/v/n34VacWSF7LRevkhrsNq
