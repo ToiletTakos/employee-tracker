@@ -136,7 +136,7 @@ const promptAddDepartment = () => {
 }
 
 const promptAddRole = () => {
-    const Sql = `SELECT id AS value, department FROM department`;
+    const Sql = `SELECT id AS value, department AS name FROM department`;
         db.query(Sql, (err, results) => {
         if (err) {
             console.log(err);
